@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System.Linq;
 
@@ -78,6 +74,7 @@ namespace GFEAppManager
         private void AddToListButton_Click(object sender, EventArgs e)
         {
             AddToListOfApplicationsToDisableService(AppNameTextBox.Text);
+            AppNameTextBox.Clear();
         }
 
         private void RemoveFromTheListButton_Click(object sender, EventArgs e)
@@ -89,6 +86,15 @@ namespace GFEAppManager
         private void AddFromListButton_Click(object sender, EventArgs e)
         {
             AddToListOfApplicationsToDisableService(CurrentlyRunningAppsList.SelectedItem.ToString());
+        }
+
+        private void AppNameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                AddToListOfApplicationsToDisableService(AppNameTextBox.Text);
+                AppNameTextBox.Clear();
+            }
         }
     }
 }

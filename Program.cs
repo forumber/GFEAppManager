@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace GFEAppManager
@@ -14,7 +13,8 @@ namespace GFEAppManager
         [STAThread]
         static void Main(string[] args)
         {
-            ListOfApplicationsToDisableService.TryAdd("test.exe", "test.exe");
+            ListOfApplicationsToDisableService.TryAdd("taskmgr.exe", "taskmgr.exe");
+            ListOfApplicationsToDisableService.TryAdd("chrome.exe", "chrome.exe");
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

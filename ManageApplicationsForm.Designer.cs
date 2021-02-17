@@ -48,7 +48,7 @@ namespace GFEAppManager
             this.ListeningAppsList.ItemHeight = 15;
             this.ListeningAppsList.Location = new System.Drawing.Point(12, 42);
             this.ListeningAppsList.Name = "ListeningAppsList";
-            this.ListeningAppsList.Size = new System.Drawing.Size(180, 319);
+            this.ListeningAppsList.Size = new System.Drawing.Size(193, 319);
             this.ListeningAppsList.TabIndex = 0;
             // 
             // ListeningAppsLabel
@@ -63,7 +63,7 @@ namespace GFEAppManager
             // CurrentlyRunningAppsLabel
             // 
             this.CurrentlyRunningAppsLabel.AutoSize = true;
-            this.CurrentlyRunningAppsLabel.Location = new System.Drawing.Point(287, 23);
+            this.CurrentlyRunningAppsLabel.Location = new System.Drawing.Point(294, 24);
             this.CurrentlyRunningAppsLabel.Name = "CurrentlyRunningAppsLabel";
             this.CurrentlyRunningAppsLabel.Size = new System.Drawing.Size(104, 15);
             this.CurrentlyRunningAppsLabel.TabIndex = 3;
@@ -73,14 +73,14 @@ namespace GFEAppManager
             // 
             this.CurrentlyRunningAppsList.FormattingEnabled = true;
             this.CurrentlyRunningAppsList.ItemHeight = 15;
-            this.CurrentlyRunningAppsList.Location = new System.Drawing.Point(287, 42);
+            this.CurrentlyRunningAppsList.Location = new System.Drawing.Point(294, 43);
             this.CurrentlyRunningAppsList.Name = "CurrentlyRunningAppsList";
-            this.CurrentlyRunningAppsList.Size = new System.Drawing.Size(180, 319);
+            this.CurrentlyRunningAppsList.Size = new System.Drawing.Size(193, 319);
             this.CurrentlyRunningAppsList.TabIndex = 4;
             // 
             // RefreshCurrentlyRunningListButton
             // 
-            this.RefreshCurrentlyRunningListButton.Location = new System.Drawing.Point(287, 368);
+            this.RefreshCurrentlyRunningListButton.Location = new System.Drawing.Point(294, 368);
             this.RefreshCurrentlyRunningListButton.Name = "RefreshCurrentlyRunningListButton";
             this.RefreshCurrentlyRunningListButton.Size = new System.Drawing.Size(75, 23);
             this.RefreshCurrentlyRunningListButton.TabIndex = 5;
@@ -90,7 +90,7 @@ namespace GFEAppManager
             // 
             // AddFromListButton
             // 
-            this.AddFromListButton.Location = new System.Drawing.Point(202, 185);
+            this.AddFromListButton.Location = new System.Drawing.Point(211, 183);
             this.AddFromListButton.Name = "AddFromListButton";
             this.AddFromListButton.Size = new System.Drawing.Size(75, 23);
             this.AddFromListButton.TabIndex = 0;
@@ -102,9 +102,10 @@ namespace GFEAppManager
             // 
             this.AppNameTextBox.Location = new System.Drawing.Point(13, 367);
             this.AppNameTextBox.Name = "AppNameTextBox";
-            this.AppNameTextBox.Size = new System.Drawing.Size(179, 23);
+            this.AppNameTextBox.Size = new System.Drawing.Size(192, 23);
             this.AppNameTextBox.TabIndex = 6;
             this.AppNameTextBox.Text = "example.exe";
+            this.AppNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AppNameTextBox_KeyDown);
             // 
             // AddToListButton
             // 
@@ -130,7 +131,7 @@ namespace GFEAppManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 450);
+            this.ClientSize = new System.Drawing.Size(499, 450);
             this.Controls.Add(this.RemoveFromTheListButton);
             this.Controls.Add(this.AddToListButton);
             this.Controls.Add(this.AppNameTextBox);
