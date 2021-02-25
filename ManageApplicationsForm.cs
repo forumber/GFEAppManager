@@ -47,40 +47,45 @@ namespace GFEAppManager
             var FinalList = process.OrderBy(x => x.ProcessName).GroupBy(x => x.ProcessName).Select(x => x.First()); // Maybe there is a better way to do it, but if it works, it works.
             foreach (Process prs in FinalList)
             {
-                if (CheckProcName(prs.ProcessName))
+                if (CheckProcName(prs.ProcessName) && prs.Id != Process.GetCurrentProcess().Id)
                     this.CurrentlyRunningAppsList.Items.Add(prs.ProcessName + ".exe");
             }
         }
 
-        private void AddToListOfApplicationsToDisableService(string ProcName)
+        private bool AddToListOfApplicationsToDisableService(string ProcName)
         {
             if (!ProcName.EndsWith(".exe"))
             {
                 MessageBox.Show(owner: this, text: "You need to enter a process with .exe extension!", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             if (Program.ListOfApplicationsToDisableService.Keys.Any(x => x.ToLower() == ProcName.ToLower()))
             {
                 MessageBox.Show(owner: this, text: "The process is already in list!", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             Program.ListOfApplicationsToDisableService.TryAdd(ProcName, ProcName);
 
             RefreshListeningAppsList();
+
+            Program.SaveConfigFile();
+
+            return true;
         }
 
         private void AddToListButton_Click(object sender, EventArgs e)
         {
-            AddToListOfApplicationsToDisableService(AppNameTextBox.Text);
-            AppNameTextBox.Clear();
+            if (AddToListOfApplicationsToDisableService(AppNameTextBox.Text))
+                AppNameTextBox.Clear();
         }
 
         private void RemoveFromTheListButton_Click(object sender, EventArgs e)
         {
             Program.ListOfApplicationsToDisableService.TryRemove(ListeningAppsList.SelectedItem.ToString(), out _);
             RefreshListeningAppsList();
+            Program.SaveConfigFile();
         }
 
         private void AddFromListButton_Click(object sender, EventArgs e)
@@ -92,8 +97,8 @@ namespace GFEAppManager
         {
             if (e.KeyCode == Keys.Enter)
             {
-                AddToListOfApplicationsToDisableService(AppNameTextBox.Text);
-                AppNameTextBox.Clear();
+                if (AddToListOfApplicationsToDisableService(AppNameTextBox.Text))
+                    AppNameTextBox.Clear();
             }
         }
     }
