@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -24,6 +25,22 @@ namespace GFEAppManager
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledExceptionMessageBox);
             Application.ThreadException += new ThreadExceptionEventHandler(UIThreadUnhandledExceptionMessageBox);
+
+            if (args.Length >= 1)
+            {
+                if (args[0] == "startup")
+                {
+                    // Lets make sure that the tray icon is visible after login by restarting the app with significant delay
+                    ProcessStartInfo Info = new ProcessStartInfo();
+                    string ThePath = System.Reflection.Assembly.GetExecutingAssembly().Location.Remove(System.Reflection.Assembly.GetExecutingAssembly().Location.Length - 4) + ".exe";
+                    Info.Arguments = "/C ping 127.0.0.1 -n 4 && \"" + ThePath +  "\"";
+                    Info.WindowStyle = ProcessWindowStyle.Hidden;
+                    Info.CreateNoWindow = true;
+                    Info.FileName = "cmd.exe";
+                    Process.Start(Info);
+                    System.Environment.Exit(0);
+                }
+            }
 
             if (System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
             {
