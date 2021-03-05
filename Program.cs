@@ -13,6 +13,7 @@ namespace GFEAppManager
         public static readonly ConcurrentDictionary<string, string> ListOfApplicationsToDisableService = new ConcurrentDictionary<string, string>(); // Maybe it is a bad practice, but who cares rn.
         public static readonly ServiceOperations TheServiceOperations = new ServiceOperations("NvContainerLocalSystem");
         public static readonly string ConfigFileLocation = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\list_of_processes.txt";
+        public static readonly string ExceptionLogFilePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\exception_log.txt";
         public static MainAppContext TheMainAppContext;
 
         [STAThread]
@@ -99,6 +100,9 @@ namespace GFEAppManager
 
         private static void UIThreadUnhandledExceptionMessageBox(object sender, ThreadExceptionEventArgs e)
         {
+            File.AppendAllText(ExceptionLogFilePath,
+                Environment.NewLine + DateTime.Now.ToString() + Environment.NewLine + e.Exception.ToString() + Environment.NewLine);
+
             try
             {
                 MessageBox.Show(e.Exception.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -122,6 +126,9 @@ namespace GFEAppManager
 
         private static void UnhandledExceptionMessageBox(object sender, UnhandledExceptionEventArgs e)
         {
+            File.AppendAllText(ExceptionLogFilePath,
+                Environment.NewLine + DateTime.Now.ToString() + Environment.NewLine + ((Exception)e.ExceptionObject).ToString() + Environment.NewLine);
+
             try
             {
                 Exception ex = (Exception)e.ExceptionObject;
