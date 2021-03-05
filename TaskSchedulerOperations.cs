@@ -7,7 +7,7 @@ namespace GFEAppManager
 {
     public static class TaskSchedulerOperations
     {
-        public static void AddToTS(string Path)
+        public static void AddToTS()
         {
             using (TaskService ts = new TaskService())
             {
@@ -21,7 +21,7 @@ namespace GFEAppManager
                 //td.Triggers.Add(new LogonTrigger { UserId = System.Security.Principal.WindowsIdentity.GetCurrent().Name });
                 td.Triggers.Add(new LogonTrigger());
 
-                td.Actions.Add(new ExecAction(Path, "startup"));
+                td.Actions.Add(new ExecAction(System.Reflection.Assembly.GetExecutingAssembly().Location.Remove(System.Reflection.Assembly.GetExecutingAssembly().Location.Length - 4) + ".exe", "startup"));
 
                 ts.RootFolder.RegisterTaskDefinition("Open GFEAppManager", td);
             }

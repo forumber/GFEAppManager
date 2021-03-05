@@ -18,7 +18,7 @@ namespace GFEAppManager
             TheContextMenu.Items.Add("Application Status: Running", System.Drawing.SystemIcons.Information.ToBitmap(), null);
             TheContextMenu.Items.Add("GFE Status: ", System.Drawing.SystemIcons.Information.ToBitmap(), null);
             TheContextMenu.Items.Add("Triggering Apps", null, (sender, eventArgs) => new TriggeringAppListForm().Show());
-            TheContextMenu.Items.Add("Open at startup", null, (sender, eventArgs) => TaskSchedulerOperations.AddToTS(System.Reflection.Assembly.GetExecutingAssembly().Location.Remove(System.Reflection.Assembly.GetExecutingAssembly().Location.Length - 4) + ".exe"));
+            TheContextMenu.Items.Add("Open at startup", null, (sender, eventArgs) => TaskSchedulerOperations.AddToTS());
             TheContextMenu.Items.Add("Open at startup", null, (sender, eventArgs) => TaskSchedulerOperations.RemoveFromTS());
             TheContextMenu.Items.Add("Manage Applications", null, (sender, eventArgs) => new ManageApplicationsForm().Show());
             TheContextMenu.Items.Add("Exit", System.Drawing.SystemIcons.Error.ToBitmap(), (sender, eventArgs) => { 
