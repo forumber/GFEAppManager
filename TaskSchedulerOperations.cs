@@ -23,7 +23,7 @@ namespace GFEAppManager
 
                 td.Actions.Add(new ExecAction(System.Reflection.Assembly.GetExecutingAssembly().Location.Remove(System.Reflection.Assembly.GetExecutingAssembly().Location.Length - 4) + ".exe", "startup"));
 
-                ts.RootFolder.RegisterTaskDefinition("Open GFEAppManager", td);
+                ts.RootFolder.RegisterTaskDefinition("GFEAppManager", td);
             }
         }
 
