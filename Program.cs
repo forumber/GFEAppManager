@@ -15,6 +15,7 @@ namespace GFEAppManager
         public static readonly string ConfigFileLocation = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\list_of_processes.txt";
         public static readonly string ExceptionLogFilePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\exception_log.txt";
         public static MainAppContext TheMainAppContext;
+        public static Mutex TheMutex;
 
         [STAThread]
         static void Main(string[] args)
@@ -26,6 +27,14 @@ namespace GFEAppManager
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledExceptionMessageBox);
             Application.ThreadException += new ThreadExceptionEventHandler(UIThreadUnhandledExceptionMessageBox);
+
+            TheMutex = new Mutex(true, "GFEAppManager");
+
+            if (!TheMutex.WaitOne(TimeSpan.Zero, true))
+            {
+                MessageBox.Show(owner: null, text: "An instance of application is already running!", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+                System.Environment.Exit(1);
+            }
 
             if (args.Length >= 1)
             {
@@ -41,12 +50,6 @@ namespace GFEAppManager
                     Process.Start(Info);
                     System.Environment.Exit(0);
                 }
-            }
-
-            if (System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
-            {
-                MessageBox.Show(owner: null, text: "An instance of application is already running!", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-                System.Environment.Exit(1);
             }
 
             try
